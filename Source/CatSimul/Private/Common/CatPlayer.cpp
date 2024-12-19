@@ -49,22 +49,49 @@ void ACatPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 		// Jumping
 		EnhancedInputComponent->BindAction(IA_Turn, ETriggerEvent::Triggered, this, &ACatPlayer::Look);
 		EnhancedInputComponent->BindAction(IA_Move, ETriggerEvent::Triggered, this, &ACatPlayer::Move);
+		EnhancedInputComponent->BindAction(IA_Move, ETriggerEvent::Completed, this, &ACatPlayer::Move);
 		EnhancedInputComponent->BindAction(IA_Jump, ETriggerEvent::Triggered, this, &ACatPlayer::HandleJump);
 	}
 }
 
-void ACatPlayer::Move(const FInputActionValue& Value)
+void ACatPlayer::Move(const FInputActionInstance& Instance)
 {
-	float MovementSpeed = Value.Get<float>();
+	// 현재 트리거 상태 가져오기
+	const ETriggerEvent TriggerEvent = Instance.GetTriggerEvent();
+    
+	// 현재 입력 값 가져오기
+	float MovementSpeed = Instance.GetValue().Get<float>();
 
-	if(Controller != nullptr)
+	if (TriggerEvent == ETriggerEvent::Triggered) // 트리거 상태 (키 입력 시작)
 	{
-		const FRotator ControlRotation = Controller->GetControlRotation();
-		const FRotator YawRot(0, ControlRotation.Yaw, 0);
+		UE_LOG(LogTemp, Display, TEXT("Move Triggered"));
+		bIsMove = true;
 
-		const FVector ForwardDirection = FRotationMatrix(YawRot).GetUnitAxis(EAxis::X);
+		// 속도 설정
+		if (MovementSpeed > 0.f) // 전진
+		{
+			GetCharacterMovement()->MaxWalkSpeed = 600.f;
+		}
+		else if (MovementSpeed < 0.f) // 후진
+		{
+			GetCharacterMovement()->MaxWalkSpeed = 300.f;
+		}
 
-		AddMovementInput(ForwardDirection, MovementSpeed);
+		// 이동 처리
+		if (Controller != nullptr)
+		{
+			const FRotator ControlRotation = Controller->GetControlRotation();
+			const FRotator YawRot(0, ControlRotation.Yaw, 0);
+
+			const FVector ForwardDirection = FRotationMatrix(YawRot).GetUnitAxis(EAxis::X);
+
+			AddMovementInput(ForwardDirection, MovementSpeed);
+		}
+	}
+	else if (TriggerEvent == ETriggerEvent::Completed) // 입력 완료 상태 (키를 뗌)
+	{
+		UE_LOG(LogTemp, Display, TEXT("Move Completed"));
+		bIsMove = false;
 	}
 }
 
@@ -114,8 +141,6 @@ void ACatPlayer::StopJump()
 
 	// 점프 실행
 	Jump();
-
-	
 }
 
 void ACatPlayer::UpdateJumpPower()

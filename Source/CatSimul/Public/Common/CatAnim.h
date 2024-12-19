@@ -19,13 +19,15 @@ public:
 
 	UPROPERTY()
 	class ACatPlayer* player;
-	
+		
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animation)
-	bool bIsMove;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animation)
-	bool bIsFalling;
+	float SpeedZ;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animation)
 	float GroundSpeed;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animation)
 	float Vertical;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animation)
+	bool bIsMove;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animation)
+	bool bIsFalling;
 };

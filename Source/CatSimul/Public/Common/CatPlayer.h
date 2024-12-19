@@ -8,6 +8,7 @@
 
 class UInputAction;
 struct FInputActionValue;
+struct FInputActionInstance;
 
 UCLASS()
 class CATSIMUL_API ACatPlayer : public ACharacter
@@ -49,10 +50,11 @@ public:
 	UInputAction* IA_Jump;
 
 	float JumpHoldTime = 0; // 버튼 누름 시간
+	bool bIsMove = false;
 	FTimerHandle JumpTimerHandle;
 	
 	/** Called for movement input */
-	void Move(const FInputActionValue& Value);
+	void Move(const FInputActionInstance& Instance);
 
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
