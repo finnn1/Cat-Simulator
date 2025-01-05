@@ -19,6 +19,7 @@ public:
 	void RemoveFromInventory();
 	void AddToStack(int32 index, int32 quantity);
 	bool CreateToStack(FName itemID, int32 quantity);
+	UFUNCTION(BlueprintCallable)
 	int32 AddToInventory(FName itemID, int32 quantity, bool& bsuccess);
 	int32 FindSlot(FName itemID, bool& bSuccess);
 	int32 GetMaxStackSize(FName itemID);

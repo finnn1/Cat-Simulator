@@ -17,6 +17,7 @@ public:
 	void GridSetting();
 	virtual void NativePreConstruct() override;
 
+	UFUNCTION(BlueprintCallable)
 	void DisplayInventory(UInventorySystem* inventorySystem);
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory")
