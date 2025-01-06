@@ -20,12 +20,14 @@ class CATSIMUL_API UUInventorySlot : public UUserWidget
 
 public:
 	virtual void NativeConstruct() override;
-	
+
+	virtual void NativePreConstruct() override;
+
+	void Init(FName itemID, int32 quatity, UInventorySystem* inventorySystem);
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite,meta = (BindWidget))
 	UBorder* BRD_Border;
-
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite,meta = (BindWidget))
 	UTextBlock* TXT_Quantity;

@@ -44,7 +44,7 @@ int32 UInventorySystem::AddToInventory(FName itemID, int32 quantity, bool& bsucc
 		else
 		{
 			// 더 이상 비어있는 슬롯이 없어요
-			if(!AnyEmptySlotIndex(bsuccess))
+			if(AnyEmptySlotIndex(bsuccess))
 			{
 				bsuccess = false;
 				break;
