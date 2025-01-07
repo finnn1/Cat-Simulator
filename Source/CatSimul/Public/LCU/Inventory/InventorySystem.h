@@ -19,13 +19,24 @@ public:
 	void RemoveFromInventory();
 	void AddToStack(int32 index, int32 quantity);
 	bool CreateToStack(FName itemID, int32 quantity);
+	UFUNCTION(BlueprintCallable)
 	int32 AddToInventory(FName itemID, int32 quantity, bool& bsuccess);
 	int32 FindSlot(FName itemID, bool& bSuccess);
 	int32 GetMaxStackSize(FName itemID);
 	int32 AnyEmptySlotIndex(bool& bSuccess);
+
+	// Get, Set
+	TArray<FSlotStruct> GetContent() {return Content;}
 	
+	// Get, Set End
 
 private:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item", meta = (AllowPrivateAccess = "true"))
+	AActor* ItemInLeftHand;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item", meta = (AllowPrivateAccess = "true"))
+	AActor* ItemInRightHand;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory", meta=(AllowPrivateAccess=true))
 	int32 InventorySize;
 	
