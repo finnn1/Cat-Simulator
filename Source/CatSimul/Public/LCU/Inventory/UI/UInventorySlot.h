@@ -6,6 +6,8 @@
 #include "Blueprint/UserWidget.h"
 #include "UInventorySlot.generated.h"
 
+class UUDragPreview;
+class UButton;
 class UBorder;
 class UTextBlock;
 class UImage;
@@ -22,12 +24,15 @@ public:
 	virtual void NativeConstruct() override;
 
 	virtual void NativePreConstruct() override;
-
-	void Init(FName itemID, int32 quatity, UInventorySystem* inventorySystem);
+	
+	void Init(FName itemID, int32 quatity, UInventorySystem* inventorySystem, int32 contentIndex);
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite,meta = (BindWidget))
 	UBorder* BRD_Border;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite,meta = (BindWidget))
+	UButton* BTN_Slot;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite,meta = (BindWidget))
 	UTextBlock* TXT_Quantity;
@@ -50,4 +55,13 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 Quantity;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 ContentIndex;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<UUDragPreview> DragPreview;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<UDragDropOperation> DDOperation;
 };
