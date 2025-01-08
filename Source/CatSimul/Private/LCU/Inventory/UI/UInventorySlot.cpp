@@ -3,19 +3,20 @@
 
 #include "LCU/Inventory/UI/UInventorySlot.h"
 
-#include <string>
-
+#include "EditorCategoryUtils.h"
+#include "Blueprint/WidgetBlueprintLibrary.h"
 #include "Components/Image.h"
 #include "Components/SizeBox.h"
 #include "Components/TextBlock.h"
 #include "Kismet/KismetTextLibrary.h"
 #include "LCU/Inventory/FItemStruct.h"
+#include "LCU/Inventory/UI/UDDInventory.h"
+#include "LCU/Inventory/UI/UDragPreview.h"
 
 
 void UUInventorySlot::NativeConstruct()
 {
 	Super::NativeConstruct();
-
 	
 }
 
@@ -42,11 +43,12 @@ void UUInventorySlot::NativePreConstruct()
 	}
 }
 
-void UUInventorySlot::Init(FName itemID, int32 quatity, UInventorySystem* inventorySystem)
+void UUInventorySlot::Init(FName itemID, int32 quatity, UInventorySystem* inventorySystem, int32 contentIndex)
 {
 	ItemID = itemID;
 	Quantity = quatity;
 	InventoryComp = inventorySystem;
+	ContentIndex = contentIndex;
 
 	const FString ContextString(TEXT("GetMaxStackSize Context"));
 
