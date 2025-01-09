@@ -15,6 +15,11 @@ struct FSlotStruct
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 Quantity;
-	
+
+	FSlotStruct()
+		: ItemID(FName("")), Quantity(0)
+	{
+		
+	}
 };
 

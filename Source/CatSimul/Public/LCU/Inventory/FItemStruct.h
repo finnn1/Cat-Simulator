@@ -6,6 +6,14 @@
 #include "Engine/DataTable.h"
 #include "FItemStruct.generated.h"
 
+UENUM(BlueprintType)
+enum class EItemType : uint8
+{
+	None UMETA(DisplayName = "None"),
+	Consume UMETA(DisplayName = "Consume"),
+	Equip UMETA(DisplayName = "Equip"),
+};
+
 USTRUCT(BlueprintType, Blueprintable)
 struct FItemStruct : public FTableRowBase
 {
@@ -25,4 +33,13 @@ struct FItemStruct : public FTableRowBase
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Item")
 	int32 StackSize;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Item")
+	EItemType ItemType;
+	
+	FItemStruct()
+		: Name(NAME_None), Description(""), Icon(nullptr), ItemClass(nullptr), StackSize(0), ItemType(EItemType::None)
+	{
+		
+	}
 };
