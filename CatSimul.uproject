@@ -51,6 +51,7 @@
 			"Name": "SkeletalMeshModelingTools",
 			"Enabled": true
 		}
+		
 	],
 	"TargetPlatforms": [
 		"Android",
