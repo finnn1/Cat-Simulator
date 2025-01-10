@@ -16,6 +16,7 @@ public:
 	// Sets default values for this component's properties
 	UInventorySystem();
 
+	UFUNCTION(BlueprintCallable)
 	void RemoveFromInventory();
 	void AddToStack(int32 index, int32 quantity);
 	bool CreateToStack(FName itemID, int32 quantity);
