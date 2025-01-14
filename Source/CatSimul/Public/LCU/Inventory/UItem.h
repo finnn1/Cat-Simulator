@@ -6,7 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "UItem.generated.h"
 
-UCLASS()
+UCLASS(Blueprintable, BlueprintType)
 class CATSIMUL_API AUItem : public AActor
 {
 	GENERATED_BODY()
@@ -24,6 +24,9 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	class UUItemDataComponent* ItemDataComponent;
 	
-	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UStaticMeshComponent* StaticMeshComponent;
 };
