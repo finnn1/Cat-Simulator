@@ -136,3 +136,12 @@ int32 UInventorySystem::AnyEmptySlotIndex(bool& bSuccecc)
 	return -1;
 }
 
+void UInventorySystem::UseItem(int32 index)
+{
+	FName localID = Content[index].ItemID;
+	int32 localQuantity = Content[index].Quantity;
+
+	
+	
+}
+
