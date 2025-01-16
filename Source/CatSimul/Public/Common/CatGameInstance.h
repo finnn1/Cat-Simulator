@@ -13,4 +13,4 @@ UCLASS()
 class CATSIMUL_API UCatGameInstance : public UGameInstance
 {
 	GENERATED_BODY()
-	//instj
+};
