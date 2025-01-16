@@ -6,29 +6,29 @@
 #include "LCU/Inventory/UItem.h"
 #include "UFoodItem.generated.h"
 
-UENUM(Blueprintable,BlueprintType)
-enum class EFoodOption : uint8
+UENUM()
+enum class EFoodProperty : uint8
 {
-	Cook UMETA(DisplayName="Cook"),
-	Cut UMETA(DisplayName="Cut")
+	Cook UMETA(DisplayName = " Cook"),
+	Cut UMETA(DisplayName = " Cut"),
+	Respawn UMETA(DisplayName = "Respawn")
 };
 
 USTRUCT(Blueprintable, BlueprintType)
-struct FFoodAttribute
+struct FFoodAttributes
 {
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<EFoodOption> FoodOptions;
+	TArray<EFoodProperty> FoodProperties;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 Health;
+	float Hp;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 FullFood;
+	float FullFood;
 
-	//UFUNCTION(BlueprintCallable)
-	bool HasFoodOption(const EFoodOption& option);
+	bool HasFoodProperty(EFoodProperty property);
 };
 
 UCLASS()
@@ -50,7 +50,7 @@ public:
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FFoodAttribute Food;
+	FFoodAttributes FoodAttributes;	
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<AUFoodItem> SilcedFood;

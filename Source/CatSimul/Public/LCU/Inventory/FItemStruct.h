@@ -6,6 +6,8 @@
 #include "Engine/DataTable.h"
 #include "FItemStruct.generated.h"
 
+class AUItem;
+
 UENUM(BlueprintType)
 enum class EItemType : uint8
 {
@@ -29,7 +31,7 @@ struct FItemStruct : public FTableRowBase
 	UTexture2D* Icon;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Item")
-	TSubclassOf<AActor> ItemClass;
+	TSubclassOf<AUItem> ItemObject;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Item")
 	int32 StackSize;
@@ -38,7 +40,7 @@ struct FItemStruct : public FTableRowBase
 	EItemType ItemType;
 	
 	FItemStruct()
-		: Name(NAME_None), Description(""), Icon(nullptr), ItemClass(nullptr), StackSize(0), ItemType(EItemType::None)
+		: Name(NAME_None), Description(""), Icon(nullptr), StackSize(0), ItemType(EItemType::None)
 	{
 		
 	}
