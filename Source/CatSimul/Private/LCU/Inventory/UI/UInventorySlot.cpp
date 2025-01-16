@@ -10,6 +10,7 @@
 #include "Components/TextBlock.h"
 #include "Kismet/KismetTextLibrary.h"
 #include "LCU/Inventory/FItemStruct.h"
+#include "LCU/Inventory/UI/ActionMenu.h"
 #include "LCU/Inventory/UI/UDDInventory.h"
 #include "LCU/Inventory/UI/UDragPreview.h"
 
@@ -41,6 +42,27 @@ void UUInventorySlot::NativePreConstruct()
 		IMG_Icon->SetVisibility(ESlateVisibility::Hidden);
 		SizeBox_Quantity->SetVisibility(ESlateVisibility::Hidden);
 	}
+}
+
+FReply UUInventorySlot::NativeOnPreviewMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
+{
+	if(ItemID == "")
+	{
+		return FReply::Unhandled();
+	}
+	
+	if(InMouseEvent.GetEffectingButton() == EKeys::RightMouseButton)
+	{
+		if(ActionMenu) ActionMenu->RemoveFromParent();
+		if(ActionMenuFactory)
+		{
+			ActionMenu = Cast<UActionMenu>(CreateWidget(GetWorld(), ActionMenuFactory));
+			ActionMenu->Init(InventoryComp, ContentIndex);
+			ActionMenu->AddToViewport();
+		}
+	}
+	
+	return Super::NativeOnPreviewMouseButtonDown(InGeometry, InMouseEvent);
 }
 
 void UUInventorySlot::Init(FName itemID, int32 quatity, UInventorySystem* inventorySystem, int32 contentIndex)

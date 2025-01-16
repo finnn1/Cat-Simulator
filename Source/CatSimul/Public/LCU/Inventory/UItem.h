@@ -6,7 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "UItem.generated.h"
 
-UCLASS(Blueprintable, BlueprintType)
+UCLASS(BlueprintType, Blueprintable)
 class CATSIMUL_API AUItem : public AActor
 {
 	GENERATED_BODY()
@@ -29,4 +29,6 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UStaticMeshComponent* StaticMeshComponent;
+
+	
 };

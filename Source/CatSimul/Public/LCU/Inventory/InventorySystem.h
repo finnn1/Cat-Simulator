@@ -16,15 +16,24 @@ public:
 	// Sets default values for this component's properties
 	UInventorySystem();
 
+	// Remove Item
 	UFUNCTION(BlueprintCallable)
 	void RemoveFromInventory();
+
+	// Increase Item Stack
 	void AddToStack(int32 index, int32 quantity);
+
+	//  ItemSlot into Inventory
 	bool CreateToStack(FName itemID, int32 quantity);
+
+	// 
 	UFUNCTION(BlueprintCallable)
 	int32 AddToInventory(FName itemID, int32 quantity, bool& bsuccess);
 	int32 FindSlot(FName itemID, bool& bSuccess);
 	int32 GetMaxStackSize(FName itemID);
 	int32 AnyEmptySlotIndex(bool& bSuccess);
+	
+	void UseItem(int32 index);
 
 	// Get, Set
 	TArray<FSlotStruct> GetContent() {return Content;}
