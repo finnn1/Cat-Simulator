@@ -39,6 +39,12 @@ void AKitten::Tick(float DeltaTime)
 
 void AKitten::DecreaseKittenFood()
 {
+	if(KittenCurrentFood <= 0)
+	{
+		KittenCurrentFood = 0;
+		GetWorld()->GetTimerManager().ClearTimer(FoodDecreaseTimerHandle);
+		return;
+	}
 
 	if(UseItem)
 	{
@@ -69,6 +75,10 @@ void AKitten::DecreaseKittenFood()
 
 void AKitten::IncreaseKittenFood()
 {
+	if(KittenCurrentFood <= 0)
+	{
+		return;
+	}
 	GetWorld()->GetTimerManager().PauseTimer(FoodDecreaseTimerHandle);
 	KittenCurrentFood = KittenCurrentFood + ItemPoint;
 	UE_LOG(LogTemp, Warning, TEXT("%f"),KittenCurrentFood);
