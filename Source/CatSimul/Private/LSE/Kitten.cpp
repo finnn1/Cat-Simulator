@@ -62,7 +62,9 @@ void AKitten::DecreaseKittenFood()
 	}
 
 	
-	KittenCurrentFood = KittenCurrentFood - 0.05;
+	KittenCurrentFood = KittenCurrentFood - 5.0;
+	//KittenCurrentFood = KittenCurrentFood - 5;
+
 	if(KittenCurrentFood <= 0)
 	{
 		KittenCurrentFood = 0;
