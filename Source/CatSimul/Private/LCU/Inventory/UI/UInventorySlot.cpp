@@ -51,7 +51,7 @@ FReply UUInventorySlot::NativeOnPreviewMouseButtonDown(const FGeometry& InGeomet
 		return FReply::Unhandled();
 	}
 	
-	if(InMouseEvent.GetEffectingButton() == EKeys::RightMouseButton)
+	if(InMouseEvent.IsMouseButtonDown(EKeys::RightMouseButton))
 	{
 		if(ActionMenu) ActionMenu->RemoveFromParent();
 		if(ActionMenuFactory)
