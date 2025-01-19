@@ -46,21 +46,25 @@ void UUInventorySlot::NativePreConstruct()
 
 FReply UUInventorySlot::NativeOnPreviewMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
 {
-	if(ItemID == "")
-	{
-		return FReply::Unhandled();
-	}
-	
-	if(InMouseEvent.GetEffectingButton() == EKeys::RightMouseButton)
-	{
-		if(ActionMenu) ActionMenu->RemoveFromParent();
-		if(ActionMenuFactory)
-		{
-			ActionMenu = Cast<UActionMenu>(CreateWidget(GetWorld(), ActionMenuFactory));
-			ActionMenu->Init(InventoryComp, ContentIndex);
-			ActionMenu->AddToViewport();
-		}
-	}
+	//if(ItemID == "")
+	//{
+	//	return FReply::Unhandled();
+	//}
+	//
+	//if(InMouseEvent.IsMouseButtonDown(EKeys::RightMouseButton))
+	//{
+	//	if(ActionMenu) ActionMenu->RemoveFromParent();
+	//	if(ActionMenuFactory)
+	//	{
+	//		ActionMenu = Cast<UActionMenu>(CreateWidget(GetWorld(), ActionMenuFactory));
+	//		ActionMenu->Init(InventoryComp, ContentIndex);
+	//		ActionMenu->AddToViewport();
+	//	}
+	//}
+	//else if(InMouseEvent.IsMouseButtonDown(EKeys::LeftMouseButton))
+	//{
+	//	
+	//}
 	
 	return Super::NativeOnPreviewMouseButtonDown(InGeometry, InMouseEvent);
 }

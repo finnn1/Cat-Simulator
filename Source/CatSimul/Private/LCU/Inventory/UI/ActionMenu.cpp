@@ -12,7 +12,7 @@ void UActionMenu::NativeConstruct()
 	Super::NativeConstruct();
 	
 	FVector2D pos = UWidgetLayoutLibrary::GetMousePositionOnViewport(GetWorld());
-	auto canvasSlot =  UWidgetLayoutLibrary::SlotAsCanvasSlot(this);
+	auto canvasSlot =  UWidgetLayoutLibrary::SlotAsCanvasSlot(BOX_ActionMenu);
 	canvasSlot->SetPosition(pos);
 }
 
