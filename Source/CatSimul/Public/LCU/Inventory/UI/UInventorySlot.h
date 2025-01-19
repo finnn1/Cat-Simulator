@@ -29,6 +29,9 @@ public:
 	
 	void Init(FName itemID, int32 quatity, UInventorySystem* inventorySystem, int32 contentIndex);
 
+	UFUNCTION(BlueprintNativeEvent)
+	void UseItem();
+
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite,meta = (BindWidget))
 	UBorder* BRD_Border;
