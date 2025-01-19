@@ -14,10 +14,7 @@ class CATSIMUL_API AKitten : public AActor
 public:	
 	// Sets default values for this actor's properties
 	AKitten();
-
 	
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	//float KittenTargetFood = 100;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float KittenCurrentFood = 100;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

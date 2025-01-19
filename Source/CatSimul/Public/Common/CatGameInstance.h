@@ -14,4 +14,7 @@ class CATSIMUL_API UCatGameInstance : public UGameInstance
 {
 	GENERATED_BODY()
 	
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 Day;
 };
