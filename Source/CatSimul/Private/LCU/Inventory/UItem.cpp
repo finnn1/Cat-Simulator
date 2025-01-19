@@ -16,6 +16,7 @@ AUItem::AUItem()
 	
 	StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh"));
 	StaticMeshComponent->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
+	StaticMeshComponent->SetSimulatePhysics(true);
 }
 
 // Called when the game starts or when spawned

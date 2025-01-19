@@ -3,10 +3,9 @@
 
 #include "LCU/Inventory/Item/UFoodItem.h"
 
-
-bool FFoodAttribute::HasFoodOption(const EFoodOption& option)
+bool FFoodAttributes::HasFoodProperty(EFoodProperty property)
 {
-	return FoodOptions.Contains(option);
+	return FoodProperties.Contains(property);
 }
 
 // Sets default values

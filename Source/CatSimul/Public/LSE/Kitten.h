@@ -14,14 +14,19 @@ class CATSIMUL_API AKitten : public AActor
 public:	
 	// Sets default values for this actor's properties
 	AKitten();
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float KittenTargetFood = 100.0;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float KittenCurrentFood = 100.0;
+	float KittenCurrentFood = 100;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float InterpSpeed;
 	FTimerHandle FoodDecreaseTimerHandle;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool HasFoodCalStart;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool UseItem = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float ItemPoint;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -35,4 +40,7 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	void DecreaseKittenFood();
+
+	UFUNCTION(BlueprintCallable)
+	void IncreaseKittenFood();
 };

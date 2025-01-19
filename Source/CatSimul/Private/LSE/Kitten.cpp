@@ -9,21 +9,18 @@ AKitten::AKitten()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	Tags.Add(FName("Kitten"));
-
-	///RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"));
 	KittenMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Kitten"));
-	//MovableMesh->SetupAttachment(RootComponent);
 	RootComponent = KittenMesh;
-
-	InterpSpeed = 0.1f;
-	
-
+	InterpSpeed = 10.0f;
+	HasFoodCalStart = false;
 }
 
 // Called when the game starts or when spawned
 void AKitten::BeginPlay()
 {
 	Super::BeginPlay();
+
+
 	GetWorld()->GetTimerManager().SetTimer(
 		FoodDecreaseTimerHandle,
 		this,
@@ -42,19 +39,63 @@ void AKitten::Tick(float DeltaTime)
 
 void AKitten::DecreaseKittenFood()
 {
-	
-	KittenCurrentFood = FMath::FInterpTo(KittenCurrentFood, KittenTargetFood, GetWorld()->GetDeltaSeconds(), InterpSpeed);
-	if(FMath::IsNearlyEqual(KittenCurrentFood, KittenTargetFood, 0.01f))
+	if(KittenCurrentFood <= 0)
 	{
-		KittenCurrentFood = KittenTargetFood;
+		KittenCurrentFood = 0;
+		GetWorld()->GetTimerManager().ClearTimer(FoodDecreaseTimerHandle);
+		return;
 	}
-	
-	KittenTargetFood = KittenTargetFood - 0.5;
-	if(KittenTargetFood <= 0)
+
+	if(UseItem)
 	{
-		KittenTargetFood = 0;
+		UE_LOG(LogTemp, Warning, TEXT("Use Item True"));
+		IncreaseKittenFood();
+		return;
 	}
+	if(HasFoodCalStart && KittenCurrentFood >= 100)
+	{
+		
+		GetWorld()->GetTimerManager().ClearTimer(FoodDecreaseTimerHandle);
+		KittenCurrentFood = 100;
+		UE_LOG(LogTemp, Warning, TEXT("%f"), KittenCurrentFood);
+		return;
+	}
+
+	
+	KittenCurrentFood = KittenCurrentFood - 5.0;
+	//KittenCurrentFood = KittenCurrentFood - 5;
+
+	if(KittenCurrentFood <= 0)
+	{
+		KittenCurrentFood = 0;
+	}
+
+	HasFoodCalStart = true;
+
 	UE_LOG(LogTemp, Warning, TEXT("Food: %f"), KittenCurrentFood);
-	return;
+}
+
+void AKitten::IncreaseKittenFood()
+{
+	if(KittenCurrentFood <= 0)
+	{
+		return;
+	}
+	GetWorld()->GetTimerManager().PauseTimer(FoodDecreaseTimerHandle);
+	KittenCurrentFood = KittenCurrentFood + ItemPoint;
+	UE_LOG(LogTemp, Warning, TEXT("%f"),KittenCurrentFood);
+	UseItem = false;
+
+	
+	if(HasFoodCalStart && KittenCurrentFood >= 100)
+	{
+		KittenCurrentFood = 100;
+		GetWorld()->GetTimerManager().ClearTimer(FoodDecreaseTimerHandle);
+		UE_LOG(LogTemp, Warning, TEXT("%f"), KittenCurrentFood);
+		return;
+	}
+
+	GetWorld()->GetTimerManager().UnPauseTimer(FoodDecreaseTimerHandle);
+	
 }
 
