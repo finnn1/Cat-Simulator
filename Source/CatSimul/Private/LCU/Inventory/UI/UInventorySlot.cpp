@@ -10,6 +10,7 @@
 #include "Components/TextBlock.h"
 #include "Kismet/KismetTextLibrary.h"
 #include "LCU/Inventory/FItemStruct.h"
+#include "LCU/Inventory/InventorySystem.h"
 #include "LCU/Inventory/UI/ActionMenu.h"
 #include "LCU/Inventory/UI/UDDInventory.h"
 #include "LCU/Inventory/UI/UDragPreview.h"
@@ -66,6 +67,19 @@ FReply UUInventorySlot::NativeOnPreviewMouseButtonDown(const FGeometry& InGeomet
 	//	
 	//}
 	
+	if(ItemID == "")
+	{
+		return FReply::Unhandled();
+	}
+	if(InMouseEvent.IsMouseButtonDown(EKeys::RightMouseButton))
+	{
+		InventoryComp->RemoveFromInventory(ContentIndex, false, true);
+	}
+	else if(InMouseEvent.IsMouseButtonDown(EKeys::LeftMouseButton))
+	{
+		UseItem();
+	}
+	
 	return Super::NativeOnPreviewMouseButtonDown(InGeometry, InMouseEvent);
 }
 
@@ -94,4 +108,10 @@ void UUInventorySlot::Init(FName itemID, int32 quatity, UInventorySystem* invent
 		SizeBox_Quantity->SetVisibility(ESlateVisibility::Hidden);
 	}
 }
+
+void UUInventorySlot::UseItem_Implementation()
+{
+	
+}
+
 

@@ -25,7 +25,7 @@ void AKitten::BeginPlay()
 		FoodDecreaseTimerHandle,
 		this,
 		&AKitten::DecreaseKittenFood,
-		0.05f,
+		0.2f,
 		true
 	);
 }
@@ -62,7 +62,7 @@ void AKitten::DecreaseKittenFood()
 	}
 
 	
-	KittenCurrentFood = KittenCurrentFood - 5.0;
+	KittenCurrentFood = KittenCurrentFood - 0.1;
 	//KittenCurrentFood = KittenCurrentFood - 5;
 
 	if(KittenCurrentFood <= 0)
