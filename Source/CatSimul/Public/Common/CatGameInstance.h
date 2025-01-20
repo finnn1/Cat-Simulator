@@ -16,5 +16,5 @@ class CATSIMUL_API UCatGameInstance : public UGameInstance
 	
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 Day;
+	int32 Day = 1;
 };
