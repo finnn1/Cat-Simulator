@@ -24,6 +24,7 @@ UInventorySystem::UInventorySystem()
 
 int32 UInventorySystem::AddToInventory(FName itemID, int32 quantity, bool& bsuccess)
 {
+	UE_LOG(LogTemp, Warning, TEXT("%s"), *itemID.ToString());
 	if(quantity<=0)
 	{
 		bsuccess = false;
