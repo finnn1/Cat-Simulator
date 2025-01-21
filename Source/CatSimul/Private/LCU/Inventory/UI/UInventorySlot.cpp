@@ -14,6 +14,7 @@
 #include "LCU/Inventory/UI/ActionMenu.h"
 #include "LCU/Inventory/UI/UDDInventory.h"
 #include "LCU/Inventory/UI/UDragPreview.h"
+#include "LCU/Inventory/UI/UInventoryGrid.h"
 
 
 void UUInventorySlot::NativeConstruct()
@@ -34,7 +35,7 @@ void UUInventorySlot::NativePreConstruct()
 	{
 		FText quantity = UKismetTextLibrary::Conv_IntToText(Quantity);
 		IMG_Icon->SetBrushFromTexture(RowItemData->Icon);
-		TXT_Quantity->SetText(quantity);		
+		TXT_Quantity->SetText(quantity);
 		IMG_Icon->SetVisibility(ESlateVisibility::Visible);
 		SizeBox_Quantity->SetVisibility(ESlateVisibility::Visible);
 	}
@@ -47,25 +48,7 @@ void UUInventorySlot::NativePreConstruct()
 
 FReply UUInventorySlot::NativeOnPreviewMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
 {
-	//if(ItemID == "")
-	//{
-	//	return FReply::Unhandled();
-	//}
-	//
-	//if(InMouseEvent.IsMouseButtonDown(EKeys::RightMouseButton))
-	//{
-	//	if(ActionMenu) ActionMenu->RemoveFromParent();
-	//	if(ActionMenuFactory)
-	//	{
-	//		ActionMenu = Cast<UActionMenu>(CreateWidget(GetWorld(), ActionMenuFactory));
-	//		ActionMenu->Init(InventoryComp, ContentIndex);
-	//		ActionMenu->AddToViewport();
-	//	}
-	//}
-	//else if(InMouseEvent.IsMouseButtonDown(EKeys::LeftMouseButton))
-	//{
-	//	
-	//}
+	FReply cache = Super::NativeOnPreviewMouseButtonDown(InGeometry, InMouseEvent);
 	
 	if(ItemID == "")
 	{
@@ -74,23 +57,26 @@ FReply UUInventorySlot::NativeOnPreviewMouseButtonDown(const FGeometry& InGeomet
 	if(InMouseEvent.IsMouseButtonDown(EKeys::RightMouseButton))
 	{
 		InventoryComp->RemoveFromInventory(ContentIndex, false, true);
+		InventoryGrid->DisplayInventory(InventoryComp);
 	}
 	else if(InMouseEvent.IsMouseButtonDown(EKeys::LeftMouseButton))
 	{
 		UseItem();
+		InventoryGrid->DisplayInventory(InventoryComp);
 	}
 	
 	
 	
-	return Super::NativeOnPreviewMouseButtonDown(InGeometry, InMouseEvent);
+	return cache;
 }
 
-void UUInventorySlot::Init(FName itemID, int32 quatity, UInventorySystem* inventorySystem, int32 contentIndex)
+void UUInventorySlot::Init(FName itemID, int32 quatity, UInventorySystem* inventorySystem, int32 contentIndex, UUInventoryGrid* inventoryGrid)
 {
 	ItemID = itemID;
 	Quantity = quatity;
 	InventoryComp = inventorySystem;
 	ContentIndex = contentIndex;
+	InventoryGrid = inventoryGrid;
 
 	const FString ContextString(TEXT("GetMaxStackSize Context"));
 
