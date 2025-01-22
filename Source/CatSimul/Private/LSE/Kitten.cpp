@@ -3,6 +3,8 @@
 
 #include "LSE/Kitten.h"
 
+#include "HairStrandsInterface.h"
+
 // Sets default values
 AKitten::AKitten()
 {
@@ -43,6 +45,7 @@ void AKitten::DecreaseKittenFood()
 	{
 		KittenCurrentFood = 0;
 		GetWorld()->GetTimerManager().ClearTimer(FoodDecreaseTimerHandle);
+		KittenMesh->SetVisibility(false);
 		return;
 	}
 
@@ -63,7 +66,6 @@ void AKitten::DecreaseKittenFood()
 
 	
 	KittenCurrentFood = KittenCurrentFood - 0.1;
-	//KittenCurrentFood = KittenCurrentFood - 5;
 
 	if(KittenCurrentFood <= 0)
 	{
@@ -79,8 +81,15 @@ void AKitten::IncreaseKittenFood()
 {
 	if(KittenCurrentFood <= 0)
 	{
+		KittenMesh->SetVisibility(false);
 		return;
 	}
+	else
+	{
+		KittenMesh->SetVisibility(true);
+	}
+
+	
 	GetWorld()->GetTimerManager().PauseTimer(FoodDecreaseTimerHandle);
 	KittenCurrentFood = KittenCurrentFood + ItemPoint;
 	UE_LOG(LogTemp, Warning, TEXT("%f"),KittenCurrentFood);
