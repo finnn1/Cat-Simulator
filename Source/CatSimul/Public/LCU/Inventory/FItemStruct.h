@@ -16,6 +16,15 @@ enum class EItemType : uint8
 	Equip UMETA(DisplayName = "Equip"),
 };
 
+UENUM(BlueprintType)
+enum class EItemProperty : uint8
+{
+	NONE UMETA(DisplayName = "None"),
+	HUNGER UMETA(DisplayName = "Hunger"),
+	RESPAWNABLE UMETA(DisplayName = "Respawn"),
+	CUT UMETA(DisplayName = "Cut"),
+};
+
 USTRUCT(BlueprintType, Blueprintable)
 struct FItemStruct : public FTableRowBase
 {
@@ -39,8 +48,11 @@ struct FItemStruct : public FTableRowBase
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Item")
 	EItemType ItemType;
 	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Item")
+	TMap<EItemProperty, float> ItemProperty;
+	
 	FItemStruct()
-		: Name(NAME_None), Description(""), Icon(nullptr), StackSize(0), ItemType(EItemType::None)
+		: Name(NAME_None), Description(""), Icon(nullptr), StackSize(0), ItemType(EItemType::None), ItemProperty()
 	{
 		
 	}

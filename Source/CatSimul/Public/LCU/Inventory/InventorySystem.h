@@ -51,7 +51,6 @@ public:
 	FVector GetDropLocation();
 
 	
-	
 	// Get, Set End
 
 private:
