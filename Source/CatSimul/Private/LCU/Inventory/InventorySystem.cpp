@@ -154,7 +154,7 @@ int32 UInventorySystem::FindSlot(FName itemID, bool& bSuccess)
 			}
 		}
 	}
-	return -1;      
+	return -1;
 }
 
 int32 UInventorySystem::GetMaxStackSize(FName itemID)
