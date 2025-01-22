@@ -7,6 +7,8 @@
 #include "Components/ActorComponent.h"
 #include "InventorySystem.generated.h"
 
+struct FItemStruct;
+
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent), BlueprintType, Blueprintable)
 class CATSIMUL_API UInventorySystem : public UActorComponent
 {
@@ -18,7 +20,13 @@ public:
 
 	// Remove Item
 	UFUNCTION(BlueprintCallable)
-	void RemoveFromInventory();
+	void RemoveFromInventory(int32 index, bool removeWholeStack, bool isConsumed);
+
+	UFUNCTION(BlueprintCallable)
+	void Remove(int32 index, bool removeWholeStack, bool isConsumed);
+	
+	// Drop Item
+	void DropItem(FName itemID, int32 quantity);
 
 	// Increase Item Stack
 	void AddToStack(int32 index, int32 quantity);
@@ -28,15 +36,21 @@ public:
 
 	// 
 	UFUNCTION(BlueprintCallable)
-	int32 AddToInventory(FName itemID, int32 quantity, bool& bsuccess);
+	int32 AddToInventory(FName itemID, int32 quantity);
 	int32 FindSlot(FName itemID, bool& bSuccess);
 	int32 GetMaxStackSize(FName itemID);
-	int32 AnyEmptySlotIndex(bool& bSuccess);
+	int32 AnyEmptySlotIndex();
 	
 	void UseItem(int32 index);
 
 	// Get, Set
 	TArray<FSlotStruct> GetContent() {return Content;}
+
+	FItemStruct* GetItemData(FName itemID);
+
+	FVector GetDropLocation();
+
+	
 	
 	// Get, Set End
 

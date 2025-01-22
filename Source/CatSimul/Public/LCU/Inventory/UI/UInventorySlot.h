@@ -6,6 +6,7 @@
 #include "Blueprint/UserWidget.h"
 #include "UInventorySlot.generated.h"
 
+class UUInventoryGrid;
 class UActionMenu;
 class UUDragPreview;
 class UButton;
@@ -27,7 +28,10 @@ public:
 	virtual void NativePreConstruct() override;
 	virtual FReply NativeOnPreviewMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
 	
-	void Init(FName itemID, int32 quatity, UInventorySystem* inventorySystem, int32 contentIndex);
+	void Init(FName itemID, int32 quatity, UInventorySystem* inventorySystem, int32 contentIndex, UUInventoryGrid* inventoryGrid);
+
+	UFUNCTION(BlueprintNativeEvent)
+	void UseItem();
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite,meta = (BindWidget))
@@ -48,6 +52,9 @@ public:
 	// 아이템 관련 변수들
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UInventorySystem* InventoryComp;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UUInventoryGrid* InventoryGrid;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UDataTable* Item_DataTable;
