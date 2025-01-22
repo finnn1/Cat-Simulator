@@ -43,4 +43,7 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void IncreaseKittenFood();
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	void setCompleteOpacity();
 };
