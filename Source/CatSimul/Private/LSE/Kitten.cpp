@@ -8,13 +8,18 @@
 // Sets default values
 AKitten::AKitten()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	Tags.Add(FName("Kitten"));
 	KittenMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Kitten"));
 	RootComponent = KittenMesh;
 	InterpSpeed = 10.0f;
 	HasFoodCalStart = false;
+	if(goOutKitten)
+	{
+		goOutKitten = GetWorld()->SpawnActor<AGoOutKitten>(AGoOutKitten::StaticClass(),	FVector(1528.948140,6598.352557,26.496031),FRotator(0.0f,0.0f,180.0f));
+	}
+
 }
 
 // Called when the game starts or when spawned
@@ -30,6 +35,11 @@ void AKitten::BeginPlay()
 		0.2f,
 		true
 	);
+
+	if(goOutKitten)
+	{
+		goOutKitten->SetActorHiddenInGame(true);
+	}
 }
 
 // Called every frame
@@ -81,12 +91,13 @@ void AKitten::IncreaseKittenFood()
 {
 	if(KittenCurrentFood <= 0)
 	{
-		KittenMesh->SetVisibility(false);
+		goOutKitten->SetActorHiddenInGame(false);
 		return;
 	}
 	else
 	{
 		KittenMesh->SetVisibility(true);
+		
 	}
 
 	

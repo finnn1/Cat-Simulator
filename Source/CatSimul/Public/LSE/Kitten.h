@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GoOutKitten.h"
 #include "GameFramework/Actor.h"
 #include "Kitten.generated.h"
 
@@ -46,4 +47,9 @@ public:
 	
 	UFUNCTION(BlueprintImplementableEvent)
 	void setCompleteOpacity();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Out")
+	TSubclassOf<AGoOutKitten> goOutCat;
+
+	AGoOutKitten* goOutKitten;
 };
