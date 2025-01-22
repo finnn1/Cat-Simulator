@@ -36,10 +36,10 @@ public:
 
 	// 
 	UFUNCTION(BlueprintCallable)
-	int32 AddToInventory(FName itemID, int32 quantity, bool& bsuccess);
+	int32 AddToInventory(FName itemID, int32 quantity);
 	int32 FindSlot(FName itemID, bool& bSuccess);
 	int32 GetMaxStackSize(FName itemID);
-	int32 AnyEmptySlotIndex(bool& bSuccess);
+	int32 AnyEmptySlotIndex();
 	
 	void UseItem(int32 index);
 

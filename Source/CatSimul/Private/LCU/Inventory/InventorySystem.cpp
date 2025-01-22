@@ -22,15 +22,13 @@ UInventorySystem::UInventorySystem()
 	// ...
 }
 
-int32 UInventorySystem::AddToInventory(FName itemID, int32 quantity, bool& bsuccess)
+int32 UInventorySystem::AddToInventory(FName itemID, int32 quantity)
 {
 	UE_LOG(LogTemp, Warning, TEXT("%s"), *itemID.ToString());
 	if(quantity<=0)
 	{
-		bsuccess = false;
 		return -1;
 	}
-	bsuccess = true;
 	int32 localQuantity = quantity;
 	bool foundSlot = false;
 	
@@ -48,25 +46,21 @@ int32 UInventorySystem::AddToInventory(FName itemID, int32 quantity, bool& bsucc
 		// 현재 해당 아이템을 사용하는 슬롯이 없거나 갯수가 꽉찼습니다.
 		else
 		{
-			// 더 이상 비어있는 슬롯이 없어요
-			if(AnyEmptySlotIndex(bsuccess))
+			int32 index = AnyEmptySlotIndex();
+			// 비어있는 슬롯이 존재
+			if(index != -1)
 			{
-				bsuccess = false;
-				break;
+				// 해당 아이템을 사용할 추가 슬롯을 설정하고 스택을 1로 해줍니다.
+				if(CreateToStack(itemID,1))
+				{
+					localQuantity--;
+				}
 			}
-
-			// 해당 아이템을 사용할 추가 슬롯을 설정하고 스택을 1로 해줍니다.
-			if(CreateToStack(itemID,1))
-			{
-				localQuantity--;
-			}
-			// 해당 아이템을 만들 슬롯조차 더 이상 없다면 나갑니다.
 			else
 			{
-				bsuccess = false;
-				break;
+				// 더 이상 빈 슬롯 조차 없습니다.
+				return -1;
 			}
-			
 		}
 	}
 
@@ -107,7 +101,7 @@ void UInventorySystem::DropItem(FName itemID, int32 quantity)
 	FItemStruct* localData = GetItemData(itemID);
 	if(localData)
 	{
-		for(int i = 0; i < quantity -1; ++i)
+		for(int i = 0; i < quantity; ++i)
 		{
 			// 드롭 위치 가져오기
 			FVector DropLocation = GetDropLocation();
@@ -136,9 +130,8 @@ void UInventorySystem::AddToStack(int32 index, int32 quantity)
 
 bool UInventorySystem::CreateToStack(FName itemID, int32 quantity)
 {
-	bool hasAnyEmptySlot = false;
-	int32 newSlotIndex = AnyEmptySlotIndex(hasAnyEmptySlot);
-	if(hasAnyEmptySlot)
+	int32 newSlotIndex = AnyEmptySlotIndex();
+	if(newSlotIndex != -1)
 	{
 		Content[newSlotIndex].ItemID = itemID;
 		Content[newSlotIndex].Quantity = quantity;
@@ -179,13 +172,12 @@ int32 UInventorySystem::GetMaxStackSize(FName itemID)
 	return -1;
 }
 
-int32 UInventorySystem::AnyEmptySlotIndex(bool& bSuccecc)
+int32 UInventorySystem::AnyEmptySlotIndex()
 {
 	for(int32 i = 0; i < Content.Num(); ++i)
 	{
 		if(Content[i].Quantity == 0)
 		{
-			bSuccecc = true;
 			return i;
 		}
 	}

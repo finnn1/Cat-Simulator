@@ -20,7 +20,7 @@ void UUInventoryGrid::GridSetting()
 			{
 				FName itemID = InventorySystem->GetContent()[i].ItemID;
 				int32 quantity = InventorySystem->GetContent()[i].Quantity;
-				slot->Init(itemID, quantity, InventorySystem, i);
+				slot->Init(itemID, quantity, InventorySystem, i, this);
 				Box_Grid->AddChildToWrapBox(slot);
 			}
 		}
