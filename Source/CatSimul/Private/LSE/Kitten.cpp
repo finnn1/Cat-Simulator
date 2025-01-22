@@ -69,7 +69,7 @@ void AKitten::DecreaseKittenFood()
 	{
 		KittenCurrentFood = 0;
 	}
-
+	
 	HasFoodCalStart = true;
 
 	UE_LOG(LogTemp, Warning, TEXT("Food: %f"), KittenCurrentFood);
