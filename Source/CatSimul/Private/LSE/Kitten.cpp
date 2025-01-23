@@ -33,8 +33,8 @@ void AKitten::BeginPlay()
 		goOutKitten = GetWorld()->SpawnActor<AGoOutKitten>(goOutCat,FVector(2231.850535,8931.093114,5.585758),FRotator(0, 90, 0), SpawnParams);		
 	}
 	SetKittenFoodTimer();
-	goOutKitten->SetActorHiddenInGame(false);
-//	goOutKitten->SetActorHiddenInGame(true);
+	//goOutKitten->SetActorHiddenInGame(false);
+	goOutKitten->SetActorHiddenInGame(true);
 
 	
 
