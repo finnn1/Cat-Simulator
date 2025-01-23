@@ -232,6 +232,7 @@ FVector UInventorySystem::GetDropLocation()
 			// 충돌한 경우 충돌 지점을 드롭 위치로 반환
 			return HitResult.Location;
 		}
+		
 		// 충돌하지 않은 경우 기본 드롭 위치 반환
 		return StartLocation;
 	}
