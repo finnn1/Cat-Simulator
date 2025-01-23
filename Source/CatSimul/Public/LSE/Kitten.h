@@ -36,7 +36,7 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	USkeletalMeshComponent* KittenMesh;
 	
 	UFUNCTION(BlueprintCallable)
@@ -52,4 +52,9 @@ public:
 	TSubclassOf<AGoOutKitten> goOutCat;
 
 	AGoOutKitten* goOutKitten;
+
+	UFUNCTION(BlueprintCallable)
+	void SetKittenFoodTimer();
+
+	
 };

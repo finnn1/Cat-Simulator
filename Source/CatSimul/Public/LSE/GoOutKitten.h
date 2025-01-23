@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "GoOutKitten.generated.h"
 
+class AKitten;
 UCLASS()
 class CATSIMUL_API AGoOutKitten : public AActor
 {
@@ -25,6 +26,12 @@ public:
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	USkeletalMeshComponent* GoOutKittenMesh;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	USceneComponent* GoOutKittenRoot;
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	AKitten* MyOwner;
 
 	
 	
