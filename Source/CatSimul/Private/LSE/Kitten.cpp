@@ -15,10 +15,7 @@ AKitten::AKitten()
 	RootComponent = KittenMesh;
 	InterpSpeed = 10.0f;
 	HasFoodCalStart = false;
-	if(goOutKitten)
-	{
-		goOutKitten = GetWorld()->SpawnActor<AGoOutKitten>(AGoOutKitten::StaticClass(),	FVector(1528.948140,6598.352557,26.496031),FRotator(0.0f,0.0f,180.0f));
-	}
+
 
 }
 
@@ -27,19 +24,20 @@ void AKitten::BeginPlay()
 {
 	Super::BeginPlay();
 
-
-	GetWorld()->GetTimerManager().SetTimer(
-		FoodDecreaseTimerHandle,
-		this,
-		&AKitten::DecreaseKittenFood,
-		0.2f,
-		true
-	);
-
-	if(goOutKitten)
+	if(goOutCat)
 	{
-		goOutKitten->SetActorHiddenInGame(true);
+		FActorSpawnParameters SpawnParams;
+		SpawnParams.Owner = this;
+		UE_LOG(LogTemp, Warning, TEXT("Kitten is alive"));
+		//goOutKitten = GetWorld()->SpawnActor<AGoOutKitten>(goOutCat,FVector(1360,6480,0),FRotator(0, 90, 0), SpawnParams);		
+		goOutKitten = GetWorld()->SpawnActor<AGoOutKitten>(goOutCat,FVector(2231.850535,8931.093114,5.585758),FRotator(0, 90, 0), SpawnParams);		
 	}
+	SetKittenFoodTimer();
+	goOutKitten->SetActorHiddenInGame(false);
+//	goOutKitten->SetActorHiddenInGame(true);
+
+	
+
 }
 
 // Called every frame
@@ -56,6 +54,7 @@ void AKitten::DecreaseKittenFood()
 		KittenCurrentFood = 0;
 		GetWorld()->GetTimerManager().ClearTimer(FoodDecreaseTimerHandle);
 		KittenMesh->SetVisibility(false);
+		goOutKitten->SetActorHiddenInGame(false);
 		return;
 	}
 
@@ -70,18 +69,20 @@ void AKitten::DecreaseKittenFood()
 		
 		GetWorld()->GetTimerManager().ClearTimer(FoodDecreaseTimerHandle);
 		KittenCurrentFood = 100;
-		UE_LOG(LogTemp, Warning, TEXT("%f"), KittenCurrentFood);
 		return;
 	}
 
 	
 	KittenCurrentFood = KittenCurrentFood - 0.1;
+	//KittenCurrentFood = KittenCurrentFood - 5;
 
 	if(KittenCurrentFood <= 0)
 	{
 		KittenCurrentFood = 0;
+		KittenMesh->SetVisibility(false);
+		goOutKitten->SetActorHiddenInGame(false);
 	}
-
+	
 	HasFoodCalStart = true;
 
 	UE_LOG(LogTemp, Warning, TEXT("Food: %f"), KittenCurrentFood);
@@ -89,33 +90,34 @@ void AKitten::DecreaseKittenFood()
 
 void AKitten::IncreaseKittenFood()
 {
-	if(KittenCurrentFood <= 0)
-	{
-		goOutKitten->SetActorHiddenInGame(false);
-		return;
-	}
-	else
-	{
-		KittenMesh->SetVisibility(true);
-		
-	}
 
-	
 	GetWorld()->GetTimerManager().PauseTimer(FoodDecreaseTimerHandle);
 	KittenCurrentFood = KittenCurrentFood + ItemPoint;
-	UE_LOG(LogTemp, Warning, TEXT("%f"),KittenCurrentFood);
+	
 	UseItem = false;
 
-	
 	if(HasFoodCalStart && KittenCurrentFood >= 100)
 	{
 		KittenCurrentFood = 100;
+
 		GetWorld()->GetTimerManager().ClearTimer(FoodDecreaseTimerHandle);
+
 		UE_LOG(LogTemp, Warning, TEXT("%f"), KittenCurrentFood);
 		return;
 	}
 
 	GetWorld()->GetTimerManager().UnPauseTimer(FoodDecreaseTimerHandle);
 	
+}
+
+void AKitten::SetKittenFoodTimer()
+{
+	GetWorld()->GetTimerManager().SetTimer(
+	FoodDecreaseTimerHandle,
+	this,
+	&AKitten::DecreaseKittenFood,
+	0.2f,
+	true
+	);
 }
 
