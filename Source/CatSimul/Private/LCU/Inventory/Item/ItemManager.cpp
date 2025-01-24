@@ -3,6 +3,7 @@
 
 #include "LCU/Inventory/Item/ItemManager.h"
 
+#include "LCU/Inventory/FItemStruct.h"
 #include "LCU/Inventory/UItem.h"
 #include "LCU/Inventory/UItemDataComponent.h"
 #include "LCU/Inventory/Item/UFoodItem.h"
@@ -25,21 +26,25 @@ void AItemManager::CheckRespawnItem(AUItem* Item)
 {
 	if(AUFoodItem* foodItem = Cast<AUFoodItem>(Item))
 	{
-		if(!foodItem->FoodAttributes.HasFoodProperty(EFoodProperty::Respawn)) return;
+		const FString ContextString(TEXT("GetMaxStackSize Context"));
+		FName itemID = Item->ItemDataComponent->ItemID.RowName;
+		FItemStruct* RowItemData = ItemDataTable->FindRow<FItemStruct>(itemID, ContextString);
+
+		// 리스폰이 불가한 아이템이거나 해당 아이템의 정보가 없거나 이미 픽업 한 아이템을 다시 만진다면 그 아이템은 리스폰하지 않습니다.
+		if(!(RowItemData && RowItemData->ItemProperty.Contains(EItemProperty::RESPAWNABLE) && Item->GetCanRespawn())) return;
  
 		// 아이템의 위치와 클래스를 저장
 		FItemRespawnData RespawnInfo;
 		RespawnInfo.Location = Item->GetActorLocation();
 		RespawnInfo.ItemClass = Item->GetClass();
-		RespawnInfo.RespawnTime = 10.0f; // 30초 뒤 리스폰
+		RespawnInfo.RespawnTime = RowItemData->ItemProperty[EItemProperty::RESPAWNABLE]; 
  
-		FName itemID = Item->ItemDataComponent->ItemID.RowName;
 		// 맵에 데이터 추가
 		RespawnData.Add(itemID, RespawnInfo);
 
 		FTimerHandle RespawnTimerHandle;
-		FTimerDelegate TimerDelegate = FTimerDelegate::CreateUObject(this, &AItemManager::RespawnItem, itemID);
-		GetWorld()->GetTimerManager().SetTimer(RespawnTimerHandle, TimerDelegate, 10.f, false);
+		FTimerDelegate TimerDelegate = FTimerDelegate::CreateUObject(this, &AItemManager::RespawnItem, Item->ItemDataComponent->ItemID.RowName);
+		GetWorld()->GetTimerManager().SetTimer(RespawnTimerHandle, TimerDelegate, RespawnInfo.RespawnTime, false);
 	}
 }
 

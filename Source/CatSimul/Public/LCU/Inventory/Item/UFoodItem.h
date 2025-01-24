@@ -6,29 +6,29 @@
 #include "LCU/Inventory/UItem.h"
 #include "UFoodItem.generated.h"
 
-UENUM()
-enum class EFoodProperty : uint8
-{
-	Cook UMETA(DisplayName = " Cook"),
-	Cut UMETA(DisplayName = " Cut"),
-	Respawn UMETA(DisplayName = "Respawn")
-};
+//UENUM()
+//enum class EFoodProperty : uint8
+//{
+//	Cook UMETA(DisplayName = " Cook"),
+//	Cut UMETA(DisplayName = " Cut"),
+//	Respawn UMETA(DisplayName = "Respawn")
+//};
 
 USTRUCT(Blueprintable, BlueprintType)
 struct FFoodAttributes
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<EFoodProperty> FoodProperties;
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	//TArray<EFoodProperty> FoodProperties;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float Hp;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float FullFood;
-
-	bool HasFoodProperty(EFoodProperty property);
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	//float Hp;
+//
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	//float FullFood;
+//
+	//bool HasFoodProperty(EFoodProperty property);
 };
 
 UCLASS()
@@ -49,11 +49,11 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FFoodAttributes FoodAttributes;	
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	//FFoodAttributes FoodAttributes;	
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSubclassOf<AUFoodItem> SilcedFood;
+	TSubclassOf<AUFoodItem> SlicedFood;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 SliceNum;

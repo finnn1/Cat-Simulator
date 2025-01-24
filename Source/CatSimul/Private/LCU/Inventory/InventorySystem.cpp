@@ -91,10 +91,6 @@ void UInventorySystem::RemoveFromInventory(int32 index, bool removeWholeStack, b
 	}
 }
 
-void UInventorySystem::Remove(int32 index, bool removeWholeStack, bool isConsumed)
-{
-	
-}
 
 void UInventorySystem::DropItem(FName itemID, int32 quantity)
 {
@@ -112,11 +108,16 @@ void UInventorySystem::DropItem(FName itemID, int32 quantity)
 
 			// 아이템 스폰
 			AActor* SpawnedActor = GetWorld()->SpawnActor<AUItem>(localData->ItemObject, SpawnTransform);
-			if(AUFoodItem* AFoodItem = Cast<AUFoodItem>(SpawnedActor))
+			if(AUItem* NewItem = Cast<AUItem>(SpawnedActor))
 			{
-				if(AFoodItem->FoodAttributes.FoodProperties.Contains(EFoodProperty::Respawn))
+				//if(AFoodItem->FoodAttributes.FoodProperties.Contains(EFoodProperty::Respawn))
+				//{
+				//	AFoodItem->FoodAttributes.FoodProperties.Remove(EFoodProperty::Respawn);
+				//}
+
+				if(localData->ItemProperty.Contains(EItemProperty::RESPAWNABLE))
 				{
-					AFoodItem->FoodAttributes.FoodProperties.Remove(EFoodProperty::Respawn);
+					NewItem->SetCanRespawn(false);
 				}
 			}
 		}
@@ -189,8 +190,6 @@ void UInventorySystem::UseItem(int32 index)
 	FName localID = Content[index].ItemID;
 	int32 localQuantity = Content[index].Quantity;
 
-	
-	
 }
 
 FItemStruct* UInventorySystem::GetItemData(FName itemID)
