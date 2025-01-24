@@ -22,9 +22,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void RemoveFromInventory(int32 index, bool removeWholeStack, bool isConsumed);
 
-	UFUNCTION(BlueprintCallable)
-	void Remove(int32 index, bool removeWholeStack, bool isConsumed);
-	
 	// Drop Item
 	void DropItem(FName itemID, int32 quantity);
 

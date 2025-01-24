@@ -45,6 +45,9 @@ private:
 	// 리스폰 데이터를 저장할 맵
 	TMap<FName, FItemRespawnData> RespawnData;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = true))
+	class UDataTable* ItemDataTable;
+
 	// 리스폰 처리 함수
 	void RespawnItem(FName ItemID);
 };
