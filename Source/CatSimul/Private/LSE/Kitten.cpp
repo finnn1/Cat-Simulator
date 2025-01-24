@@ -28,7 +28,7 @@ void AKitten::BeginPlay()
 	{
 		FActorSpawnParameters SpawnParams;
 		SpawnParams.Owner = this;
-		UE_LOG(LogTemp, Warning, TEXT("Kitten is alive"));
+		//UE_LOG(LogTemp, Warning, TEXT("Kitten is alive"));
 		//goOutKitten = GetWorld()->SpawnActor<AGoOutKitten>(goOutCat,FVector(1360,6480,0),FRotator(0, 90, 0), SpawnParams);		
 		goOutKitten = GetWorld()->SpawnActor<AGoOutKitten>(goOutCat,FVector(2231.850535,8931.093114,5.585758),FRotator(0, 90, 0), SpawnParams);		
 	}
@@ -60,7 +60,7 @@ void AKitten::DecreaseKittenFood()
 
 	if(UseItem)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Use Item True"));
+		//UE_LOG(LogTemp, Warning, TEXT("Use Item True"));
 		IncreaseKittenFood();
 		return;
 	}
@@ -85,7 +85,7 @@ void AKitten::DecreaseKittenFood()
 	
 	HasFoodCalStart = true;
 
-	UE_LOG(LogTemp, Warning, TEXT("Food: %f"), KittenCurrentFood);
+	//UE_LOG(LogTemp, Warning, TEXT("Food: %f"), KittenCurrentFood);
 }
 
 void AKitten::IncreaseKittenFood()
@@ -102,7 +102,7 @@ void AKitten::IncreaseKittenFood()
 
 		GetWorld()->GetTimerManager().ClearTimer(FoodDecreaseTimerHandle);
 
-		UE_LOG(LogTemp, Warning, TEXT("%f"), KittenCurrentFood);
+		//UE_LOG(LogTemp, Warning, TEXT("%f"), KittenCurrentFood);
 		return;
 	}
 
