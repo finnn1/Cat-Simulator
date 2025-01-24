@@ -23,6 +23,12 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	// Get, Set
+	bool GetCanRespawn() {return bCanRespawn;};
+	void SetCanRespawn(bool can) {bCanRespawn = can;};
+
+	// Get, Set end
+	
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class UUItemDataComponent* ItemDataComponent;
@@ -30,5 +36,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UStaticMeshComponent* StaticMeshComponent;
 
-	
+protected:	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool bCanRespawn = true;
 };
