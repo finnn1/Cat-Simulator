@@ -214,7 +214,7 @@ FVector UInventorySystem::GetDropLocation()
 		FVector RandomConeVector = UKismetMathLibrary::RandomUnitVectorInConeInDegrees(ForwardVector, HalfAngleInDegrees);
 
 		// 초기 드롭 위치 계산 (콘 방향으로 150 유닛 이동)
-		FVector StartLocation = ActorLocation + (RandomConeVector * 150.0f);
+		FVector StartLocation = ActorLocation + (RandomConeVector * 70.0f);
 
 		// 라인 트레이스의 끝 위치 설정 (아래 방향으로 5000 유닛)
 		FVector EndLocation = StartLocation - FVector(0.0f, 0.0f, 5000.0f);
