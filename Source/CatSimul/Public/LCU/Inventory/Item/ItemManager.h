@@ -39,6 +39,7 @@ protected:
 public:
 	
 	// 아이템 줍기 함수
+	UFUNCTION(BlueprintCallable)
 	void CheckRespawnItem(AUItem* Item);
 
 private:
