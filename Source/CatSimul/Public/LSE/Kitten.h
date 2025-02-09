@@ -23,6 +23,9 @@ public:
 	FTimerHandle FoodDecreaseTimerHandle;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float DecreasePoint;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool HasFoodCalStart;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool UseItem = false;
@@ -56,6 +59,8 @@ public:
 	
 	AGoOutKitten* goOutKitten;
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void OutAlert();
 	
 	UFUNCTION(BlueprintCallable)
 	void SetKittenFoodTimer();
