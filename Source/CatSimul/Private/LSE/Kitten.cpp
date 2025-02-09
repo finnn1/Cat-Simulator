@@ -15,7 +15,7 @@ AKitten::AKitten()
 	RootComponent = KittenMesh;
 	InterpSpeed = 10.0f;
 	HasFoodCalStart = false;
-
+	QuestComp = false;
 
 }
 
@@ -35,6 +35,7 @@ void AKitten::BeginPlay()
 	SetKittenFoodTimer();
 	//goOutKitten->SetActorHiddenInGame(false);
 	goOutKitten->SetActorHiddenInGame(true);
+	
 
 	
 
@@ -99,7 +100,7 @@ void AKitten::IncreaseKittenFood()
 	if(HasFoodCalStart && KittenCurrentFood >= 100)
 	{
 		KittenCurrentFood = 100;
-
+		QuestComp = true;
 		GetWorld()->GetTimerManager().ClearTimer(FoodDecreaseTimerHandle);
 
 		//UE_LOG(LogTemp, Warning, TEXT("%f"), KittenCurrentFood);

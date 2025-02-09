@@ -51,8 +51,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Out")
 	TSubclassOf<AGoOutKitten> goOutCat;
 
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Quest")
+	bool QuestComp;
+	
 	AGoOutKitten* goOutKitten;
 
+	
 	UFUNCTION(BlueprintCallable)
 	void SetKittenFoodTimer();
 
