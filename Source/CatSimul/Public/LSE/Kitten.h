@@ -23,6 +23,9 @@ public:
 	FTimerHandle FoodDecreaseTimerHandle;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float DecreasePoint;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool HasFoodCalStart;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool UseItem = false;
@@ -51,8 +54,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Out")
 	TSubclassOf<AGoOutKitten> goOutCat;
 
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Quest")
+	bool QuestComp;
+	
 	AGoOutKitten* goOutKitten;
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void OutAlert();
+	
 	UFUNCTION(BlueprintCallable)
 	void SetKittenFoodTimer();
 

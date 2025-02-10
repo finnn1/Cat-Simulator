@@ -15,7 +15,8 @@ AKitten::AKitten()
 	RootComponent = KittenMesh;
 	InterpSpeed = 10.0f;
 	HasFoodCalStart = false;
-
+	QuestComp = false;
+	DecreasePoint = 0.03;
 
 }
 
@@ -35,6 +36,8 @@ void AKitten::BeginPlay()
 	SetKittenFoodTimer();
 	//goOutKitten->SetActorHiddenInGame(false);
 	goOutKitten->SetActorHiddenInGame(true);
+	
+	
 
 	
 
@@ -73,7 +76,9 @@ void AKitten::DecreaseKittenFood()
 	}
 
 	
-	KittenCurrentFood = KittenCurrentFood - 0.03;
+	KittenCurrentFood = KittenCurrentFood - DecreasePoint;
+//	KittenCurrentFood = KittenCurrentFood - 0.03;
+
 	//KittenCurrentFood = KittenCurrentFood - 5;
 
 	if(KittenCurrentFood <= 0)
@@ -81,6 +86,7 @@ void AKitten::DecreaseKittenFood()
 		KittenCurrentFood = 0;
 		KittenMesh->SetVisibility(false);
 		goOutKitten->SetActorHiddenInGame(false);
+		OutAlert();
 	}
 	
 	HasFoodCalStart = true;
@@ -99,7 +105,7 @@ void AKitten::IncreaseKittenFood()
 	if(HasFoodCalStart && KittenCurrentFood >= 100)
 	{
 		KittenCurrentFood = 100;
-
+		QuestComp = true;
 		GetWorld()->GetTimerManager().ClearTimer(FoodDecreaseTimerHandle);
 
 		//UE_LOG(LogTemp, Warning, TEXT("%f"), KittenCurrentFood);
