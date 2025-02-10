@@ -8,6 +8,7 @@
 #include "Components/Image.h"
 #include "Components/SizeBox.h"
 #include "Components/TextBlock.h"
+#include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetTextLibrary.h"
 #include "LCU/Inventory/FItemStruct.h"
 #include "LCU/Inventory/InventorySystem.h"
@@ -58,16 +59,33 @@ FReply UUInventorySlot::NativeOnPreviewMouseButtonDown(const FGeometry& InGeomet
 	{
 		InventoryComp->RemoveFromInventory(ContentIndex, false, true);
 		InventoryGrid->DisplayInventory(InventoryComp);
+
+		if(ClickSound)
+		{
+			UGameplayStatics::PlaySound2D(GetWorld(), ClickSound);
+		}
 	}
 	else if(InMouseEvent.IsMouseButtonDown(EKeys::LeftMouseButton))
 	{
 		UseItem();
 		InventoryGrid->DisplayInventory(InventoryComp);
+
+		if(ClickSound)
+		{
+			UGameplayStatics::PlaySound2D(GetWorld(), ClickSound);
+		}
 	}
-	
-	
-	
 	return cache;
+}
+
+void UUInventorySlot::NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
+{
+	Super::NativeOnMouseEnter(InGeometry, InMouseEvent);
+
+	if(HoverSound)
+	{
+		UGameplayStatics::PlaySound2D(GetWorld(), HoverSound);
+	}
 }
 
 void UUInventorySlot::Init(FName itemID, int32 quatity, UInventorySystem* inventorySystem, int32 contentIndex, UUInventoryGrid* inventoryGrid)
