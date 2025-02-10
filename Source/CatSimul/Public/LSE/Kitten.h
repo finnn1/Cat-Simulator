@@ -56,7 +56,8 @@ public:
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Quest")
 	bool QuestComp;
-	
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Quest")
 	AGoOutKitten* goOutKitten;
 
 	UFUNCTION(BlueprintImplementableEvent)

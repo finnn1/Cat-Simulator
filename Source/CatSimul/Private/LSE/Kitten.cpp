@@ -77,6 +77,8 @@ void AKitten::DecreaseKittenFood()
 		
 		GetWorld()->GetTimerManager().ClearTimer(FoodDecreaseTimerHandle);
 		KittenCurrentFood = 100;
+		QuestComp = true;
+
 		return;
 	}
 
