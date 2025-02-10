@@ -58,6 +58,7 @@ void AKitten::DecreaseKittenFood()
 		GetWorld()->GetTimerManager().ClearTimer(FoodDecreaseTimerHandle);
 		KittenMesh->SetVisibility(false);
 		goOutKitten->SetActorHiddenInGame(false);
+		OutAlert();
 		return;
 	}
 
