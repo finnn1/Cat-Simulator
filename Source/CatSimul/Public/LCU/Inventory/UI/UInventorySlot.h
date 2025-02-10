@@ -27,6 +27,7 @@ public:
 
 	virtual void NativePreConstruct() override;
 	virtual FReply NativeOnPreviewMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
+	virtual void NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
 	
 	void Init(FName itemID, int32 quatity, UInventorySystem* inventorySystem, int32 contentIndex, UUInventoryGrid* inventoryGrid);
 
@@ -74,4 +75,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UActionMenu* ActionMenu;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	USoundBase* HoverSound;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	USoundBase* ClickSound;
 };

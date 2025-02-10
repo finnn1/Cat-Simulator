@@ -35,7 +35,11 @@ void AKitten::BeginPlay()
 	}
 	SetKittenFoodTimer();
 	//goOutKitten->SetActorHiddenInGame(false);
-	goOutKitten->SetActorHiddenInGame(true);
+	if(goOutKitten)
+	{
+		goOutKitten->SetActorHiddenInGame(true);
+	}
+	
 	
 	
 
