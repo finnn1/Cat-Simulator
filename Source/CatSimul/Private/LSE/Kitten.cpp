@@ -113,7 +113,7 @@ void AKitten::IncreaseKittenFood()
 		KittenCurrentFood = 100;
 		QuestComp = true;
 		GetWorld()->GetTimerManager().ClearTimer(FoodDecreaseTimerHandle);
-
+		CheckSleepQuest();
 		//UE_LOG(LogTemp, Warning, TEXT("%f"), KittenCurrentFood);
 		return;
 	}
