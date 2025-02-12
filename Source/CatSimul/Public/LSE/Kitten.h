@@ -51,6 +51,9 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void setCompleteOpacity();
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void CheckSleepQuest();
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Out")
 	TSubclassOf<AGoOutKitten> goOutCat;
 
