@@ -1,3 +1,5 @@
 Content/ChristmasMarket/** filter=lfs diff=lfs merge=lfs -text
 Content/LCH/Resources/** filter=lfs diff=lfs merge=lfs -text
 Zen/** filter=lfs diff=lfs merge=lfs -text
+Content/StarterContent/** filter=lfs diff=lfs merge=lfs -text
+Content/Maps/** filter=lfs diff=lfs merge=lfs -text
